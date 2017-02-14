@@ -80,7 +80,7 @@ public class GetFriendsListRequest extends MyAsyncTask<List<FacebookInvitableFri
                     + "&display=touch";
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestMethod("GET");
-            connection.addRequestProperty("X-Requested-With", BuildConfig.APPLICATION_ID);
+//            connection.addRequestProperty("X-Requested-With", BuildConfig.APPLICATION_ID);
             connection.addRequestProperty("Upgrade-Insecure-Requests", AppEventsConstants.EVENT_PARAM_VALUE_YES);
             connection.addRequestProperty("User-Agent", System.getProperty("http.agent"));
             connection.addRequestProperty("Accept-Language", "en-US");
