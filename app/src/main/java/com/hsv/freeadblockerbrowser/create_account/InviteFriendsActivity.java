@@ -12,26 +12,15 @@ import android.util.Log;
 import android.view.View;
 
 import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.share.internal.ShareConstants;
 import com.hsv.freeadblockerbrowser.R;
-import com.hsv.freeadblockerbrowser.apache.GetFriends;
+import com.hsv.freeadblockerbrowser.apache.GetFriendsListRequest;
+import com.hsv.freeadblockerbrowser.model.FacebookInvitableFriend;
 import com.hsv.freeadblockerbrowser.networking.FacebookInviteRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.hsv.freeadblockerbrowser.networking.ResponseListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import com.hsv.freeadblockerbrowser.model.FacebookInvitableFriend;
-import com.hsv.freeadblockerbrowser.networking.MyAsyncTask;
-import com.hsv.freeadblockerbrowser.networking.ResponseListener;
 
 
 public class InviteFriendsActivity extends AppCompatActivity {
@@ -104,21 +93,22 @@ public class InviteFriendsActivity extends AppCompatActivity {
         ).executeAsync();
     }*/
 
-    private void getFriends(){
-        final Context applicationContext = getApplicationContext();
+    private void getFriends() {
         final String fbAppId = getString(R.string.facebook_app_id);
-        new MyAsyncTask<Void>() {
+        final String token = AccessToken.getCurrentAccessToken().getToken();
+        new GetFriendsListRequest(fbAppId, token).setListener(new ResponseListener<List<FacebookInvitableFriend>>() {
             @Override
-            protected Void doInBackground() {
-                GetFriends getFriends = new GetFriends(applicationContext, fbAppId);
-                String friendIDHTMLString = getFriends.getFriendIDHTMLString(AccessToken.getCurrentAccessToken().getToken());
-                List<FacebookInvitableFriend> friends = GetFriends.parseFirstDegreeIds(friendIDHTMLString);
-                Log.d(TAG, "doInBackground: friendIDHTMLString " + friendIDHTMLString);
-                populateFriendsList(friends);
-                return null;
+            public void onSuccess(List<FacebookInvitableFriend> result) {
+                if (result != null) {
+                    populateFriendsList(result);
+                }
             }
-        }
-                .execute();
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+        }).execute();
     }
 
     private void populateFriendsList(Collection<FacebookInvitableFriend> friends) {
