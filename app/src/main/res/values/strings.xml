@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FacebookSample</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="fb_login_protocol_scheme">fb1301381649883122</string>
+
+
+    <!--create account-->
+    <string name="create_account">Create account</string>
+    <string name="invite_friends_continue">Continue</string>
+    <string name="unselect_all">Unselect all</string>
+    <string name="invite_friends_from_facebook">Invite friends from Facebook</string>
+
+</resources>

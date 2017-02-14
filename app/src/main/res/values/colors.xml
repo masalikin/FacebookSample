@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/create_account_bg_color</color>
+    <color name="colorPrimaryDark">@color/create_account_bg_color</color>
+    <color name="colorAccent">@color/create_account_bg_color</color>
+
+
+    <color name="create_account_bg_color">#87C237</color>
+    <color name="create_account_bg_color_dark">#44611c</color>
+</resources>
